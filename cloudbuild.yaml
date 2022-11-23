@@ -13,13 +13,13 @@ steps:
   
 # Steps to build a docker image for go-microservice, push it to container registry and deploy it to cloud run.  
 - name: "gcr.io/cloud-builders/docker"
-  args: ['build', '-t', 'gcr.io/Aapplied-fusion-369417/go-microservice','.']
+  args: ['build', '-t', 'gcr.io/applied-fusion-369417/go-microservice','.']
 - name: "gcr.io/cloud-builders/docker"
   args: ['push', 'gcr.io/applied-fusion-369417/go-microservice']
   
 - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
   entrypoint: gcloud
-  args: ['run', 'deploy','go-microservice', '--image','gcr.io/Aapplied-fusion-369417/go-microservice', '--region','us-central1', '--add-cloudsql-instances', 'applied-fusion-369417:us-central1:mypostgres','--platform','managed', '--port','8080', '--allow-unauthenticated']
+  args: ['run', 'deploy','go-microservice', '--image','gcr.io/applied-fusion-369417/go-microservice', '--region','us-central1', '--add-cloudsql-instances', 'applied-fusion-369417:us-central1:mypostgres','--platform','managed', '--port','8080', '--allow-unauthenticated']
 images:
 - gcr.io/applied-fusion-369417/go-microservice
 - gcr.io/applied-fusion-369417/pgadmin
