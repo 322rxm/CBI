@@ -3,7 +3,7 @@ steps:
 - name: "gcr.io/cloud-builders/docker"
   args: ['pull', 'dpage/pgadmin4']
 - name: "gcr.io/cloud-builders/docker"
-  args: ['tag', 'dpage/pgadmin4','gcr.io/ADD_YOUR_GCP_PROJECT_ID_HERE/pgadmin']
+  args: ['tag', 'dpage/pgadmin4','gcr.io/applied-fusion-369417/pgadmin']
 - name: "gcr.io/cloud-builders/docker"
   args: ['push', 'gcr.io/ADD_YOUR_GCP_PROJECT_ID_HERE/pgadmin']
   
