@@ -1200,7 +1200,7 @@ func GetCovidDetails(db *sql.DB) {
 		"death_rate_weekly" DECIMAL(14,5),
 		"death_rate_cumulative" DECIMAL(14,5),
 		"population" INT,
-		"row_id" INT,
+		"row_id" VARCHAR(255),
 		"zip_code_location" VARCHAR(255),
 		PRIMARY KEY ("id") 
 		);`
