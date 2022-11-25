@@ -1246,7 +1246,7 @@ func GetCovidDetails(db *sql.DB) {
 			if zip_code == "" {
 				continue
 			}
-			fmt.Println(zip_code)
+
 		// 2
 			week_number := covid_details_list[i].Week_number
 			if week_number == "" {
@@ -1369,6 +1369,8 @@ func GetCovidDetails(db *sql.DB) {
 			"population,"
 			"row_id,"
 			"zip_code_location") values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)`
+
+			fmt.Println(sql)
 		
 		_, err = db.Exec(sql,
 			zip_code,
