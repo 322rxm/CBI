@@ -1260,7 +1260,7 @@ func GetCovidDetails(db *sql.DB) {
 			week_end := covid_details_list[i].Week_end
 			//if week_end == "" {
 				//continue
-			}//
+			//}
 		// 5	
 			cases_weekly := covid_details_list[i].Cases_weekly
 			//if cases_weekly == "" {
