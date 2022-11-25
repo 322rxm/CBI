@@ -1347,26 +1347,26 @@ func GetCovidDetails(db *sql.DB) {
 				//continue
 			//}
 
-			sql := `INSERT INTO covid_details ("zip_code,"
-			"week_number,"
-			"week_start,"
-			"week_end,"
-			"cases_weekly,"
-			"cases_cumulative,"
-			"case_rate_weekly,"
-			"case_rate_cumulative,"
-			"tests_weekly,"
-			"tests_cumulative,"
-			"test_rate_weekly,"
-			"test_rate_cumulative,"
-			"percent_tested_positive_weekly,"
-			"percent_tested_positive_cumulative,"
-			"deaths_weekly,"
-			"deaths_cumulative,"
-			"death_rate_weekly,"
-			"death_rate_cumulative,"
-			"population,"
-			"row_id,"
+			sql := `INSERT INTO covid_details ("zip_code",
+			"week_number",
+			"week_start",
+			"week_end",
+			"cases_weekly",
+			"cases_cumulative",
+			"case_rate_weekly",
+			"case_rate_cumulative",
+			"tests_weekly",
+			"tests_cumulative",
+			"test_rate_weekly",
+			"test_rate_cumulative",
+			"percent_tested_positive_weekly",
+			"percent_tested_positive_cumulative",
+			"deaths_weekly",
+			"deaths_cumulative",
+			"death_rate_weekly",
+			"death_rate_cumulative",
+			"population",
+			"row_id",
 			"zip_code_location") values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)`
 		
 		_, err = db.Exec(sql,
