@@ -279,9 +279,8 @@ func main() {
 		go GetCommunityAreaUnemployment(db)
 		go GetBuildingPermits(db)
 		go GetTaxiTrips(db)
-
-		// go GetCovidDetails(db)
-		// go GetCCVIDetails(db)
+		go GetCovidDetails(db)
+		go GetCCVIDetails(db)
 
 		http.HandleFunc("/", handler)
 
@@ -1162,9 +1161,233 @@ func GetBuildingPermits(db *sql.DB) {
 ////////////////////////////////////////////////////////////////////////////////////
 
 func GetCovidDetails(db *sql.DB) {
+	drop_table := `drop table if exists covid_details`
+	_, err := db.Exec(drop_table)
+	if err != nil {
+		panic(err)
+	}
 
-	fmt.Println("ADD-YOUR-CODE-HERE - To Implement GetCovidDetails")
+	create_table := `CREATE TABLE IF NOT EXISTS "covid_details" (
+		"id" SERIAL, 
+		"zip_code" VARCHAR(255),
+		"week_number" INT,
+		"week_start" DATE,
+		"week_end" DATE,
+		"cases_weekly" INT,
+		"cases_cumulative" INT,
+		"case_rate_weekly" INT,
+		"case_rate_cumulative" INT,
+		"tests_weekly" INT,
+		"tests_cumulative" INT,
+		"test_rate_weekly" DECIMAL(14,5),
+		"test_rate_cumulative" DECIMAL(14,5),
+		"percent_tested_positive_weekly" DECIMAL(14,5),
+		"percent_tested_positive_cumulative" DECIMAL(14,5),
+		"deaths_weekly" DECIMAL(14,5),
+		"deaths_cumulative" DECIMAL(14,5),
+		"death_rate_weekly" DECIMAL(14,5),
+		"death_rate_cumulative" DECIMAL(14,5),
+		"population" INT,
+		"row_id" INT,
+		"zip_code_location" VARCHAR(255),
+		PRIMARY KEY ("id") 
+		);`
+
+	_, _err := db.Exec(create_table)
+	if _err != nil {
+		panic(_err)
+	}
+
+	fmt.Println("Created Table for COVID Details")
+
+	// While doing unit-testing keep the limit value to 500
+	// later you could change it to 1000, 2000, 10,000, etc.
+
+	var url = "https://data.cityofchicago.org/resource/yhhz-zm2v.json?$limit=500"
+
+	tr := &http.Transport{
+		MaxIdleConns:       10,
+		IdleConnTimeout:    300 * time.Second,
+		DisableCompression: true,
+	}
+
+	client := &http.Client{Transport: tr}
+
+	res, err := client.Get(url)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Received data from SODA REST API for COVID details")
+
+	body, _ := ioutil.ReadAll(res.Body)
+	var covid_details_list CovidJsonRecords
+	json.Unmarshal(body, &covid_details)
+
+	s := fmt.Sprintf("\n\n COVID Details: number of SODA records received = %d\n\n", len(covid_details_list))
+	io.WriteString(os.Stdout, s)
+
+	for i := 0; i < len(covid_details_list); i++ {
+
+		// 1
+			zip_code := covid_details_list[i].zip_code
+			if zip_code == "" {
+				continue
+			}
+		// 2
+			week_number := covid_details_list[i].week_number
+			if <week_number == "" {
+				continue
+			}
+		// 3	
+			week_start := covid_details_list[i].week_start
+			if week_start == "" {
+				continue
+			}
+		// 4	
+			week_end := covid_details_list[i].week_end
+			if week_end == "" {
+				continue
+			}
+		// 5	
+			cases_weekly := covid_details_list[i].cases_weekly
+			if cases_weekly == "" {
+				continue
+			}
+		// 6
+			cases_cumulative := covid_details_list[i].cases_cumulative
+			if cases_cumulative == "" {
+				continue
+			}
+		// 7	
+			case_rate_weekly := covid_details_list[i].case_rate_weekly
+			if case_rate_weekly == "" {
+				continue
+			}
+		// 8	
+			case_rate_cumulative := covid_details_list[i].case_rate_cumulative
+			if case_rate_cumulative == "" {
+				continue
+			}
+		// 9	
+			tests_weekly := covid_details_list[i].tests_weekly
+			if tests_weekly == "" {
+				continue
+			}
+		// 10	
+			tests_cumulative := covid_details_list[i].tests_cumulative
+			if tests_cumulative == "" {
+				continue
+			}
+		// 11	
+			test_rate_weekly := covid_details_list[i].test_rate_weekly
+			if test_rate_weekly == "" {
+				continue
+			}
+		// 12	
+			test_rate_cumulative := covid_details_list[i].test_rate_cumulative
+			if test_rate_cumulative == "" {
+				continue
+			}
+		// 13	
+			percent_tested_positive_weekly := covid_details_list[i].percent_tested_positive_weekly
+			if percent_tested_positive_weekly == "" {
+				continue
+			}
+		// 14	
+			percent_tested_positive_cumulative := covid_details_list[i].percent_tested_positive_cumulative
+			if percent_tested_positive_cumulative == "" {
+				continue
+			}
+		// 15	
+			deaths_weekly := covid_details_list[i].deaths_weekly
+			if deaths_weekly == "" {
+				continue
+			}
+		// 16	
+			deaths_cumulative := covid_details_list[i].deaths_cumulative
+			if deaths_cumulative == "" {
+				continue
+			}
+		// 17	
+			death_rate_weekly := covid_details_list[i].death_rate_weekly
+			if death_rate_weekly == "" {
+				continue
+			}
+		// 18	
+			death_rate_cumulative := covid_details_list[i].death_rate_cumulative
+			if death_rate_cumulative == "" {
+				continue
+			}
+		// 19	
+			population := covid_details_list[i].population
+			if population == "" {
+				continue
+			}
+		// 20	
+			row_id := covid_details_list[i].row_id
+			if row_id == "" {
+				continue
+			}
+		// 21	
+			zip_code_location := covid_details_list[i].zip_code_location
+			if zip_code_location == "" {
+				continue
+			}
+		}
+		
+		sql := `INSERT INTO building_permits (zip_code
+		,week_number
+		,week_start
+		,week_end
+		,cases_weekly
+		,cases_cumulative
+		,case_rate_weekly
+		,case_rate_cumulative
+		,tests_weekly
+		,tests_cumulative
+		,test_rate_weekly
+		,test_rate_cumulative
+		,percent_tested_positive_weekly
+		,percent_tested_positive_cumulative
+		,deaths_weekly
+		,deaths_cumulative
+		,death_rate_weekly
+		,death_rate_cumulative
+		,population
+		,row_id
+		,zip_code_location)
+		values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)`
+		
+		_, err = db.Exec(
+			sql,
+			,zip_code
+			,week_number
+			,week_start
+			,week_end
+			,cases_weekly
+			,cases_cumulative
+			,case_rate_weekly
+			,case_rate_cumulative
+			,tests_weekly
+			,tests_cumulative
+			,test_rate_weekly
+			,test_rate_cumulative
+			,percent_tested_positive_weekly
+			,percent_tested_positive_cumulative
+			,deaths_weekly
+			,deaths_cumulative
+			,death_rate_weekly
+			,death_rate_cumulative
+			,population
+			,row_id
+			,zip_code_location)
+		
+		if err != nil {
+			panic(err)
+		}
 	
+		fmt.Println("Completed Inserting Rows into the COVID Details Table")
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
