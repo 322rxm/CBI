@@ -1505,7 +1505,7 @@ func GetCCVIDetails(db *sql.DB) {
 
 	for i := 0; i < len(covid_cvi_list); i++ {
 		// 1
-			 geography_type := covid_cvi_list[i].Geography_type
+			geography_type := covid_cvi_list[i].Geography_type
 			//if geography_type == "" {
 				//continue
 			//}
@@ -1585,7 +1585,7 @@ func GetCCVIDetails(db *sql.DB) {
 				//continue
 			//}
 
-			sql := `INSERT INTO covid_details ("geography_type",
+			sql := `INSERT INTO COVID_cvi_details ("geography_type",
 				"community_area_ZIP_code",
 				"community_area_name",
 				"CCVI_score",
