@@ -1511,7 +1511,7 @@ func GetCCVIDetails(db *sql.DB) {
 			//}
 		// 2
 			community_area_ZIP_code := covid_cvi_list[i].Community_area_or_ZIP_code
-			if len(community_area_ZIP_code) != 6 {
+			if len(community_area_ZIP_code) != 5 {
 				continue
 			}
 		// 3	
