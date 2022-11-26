@@ -1465,7 +1465,7 @@ func GetCCVIDetails(db *sql.DB) {
 		"rank_COVID_19_incidence_rate" VARCHAR(255),
 		"rank_COVID_19_hospital_admission_rate" VARCHAR(255),
 		"rank_COVID_19_crude_mortality_rate" VARCHAR(255),
-		"location" VARCHAR(255)
+		"location" VARCHAR(255),
 		PRIMARY KEY ("id") 
 		);`
 
