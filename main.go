@@ -1448,7 +1448,7 @@ func GetCCVIDetails(db *sql.DB) {
 		panic(err)
 	}
 
-	create_table := `CREATE TABLE IF NOT EXISTS "COVID_cvi_details" (
+	create_table := `CREATE TABLE IF NOT EXISTS "covid_cvi_details" (
 		"id" SERIAL, 
 		"geography_type" VARCHAR(255),
 		"community_area_ZIP_code" VARCHAR(255),
@@ -1585,7 +1585,7 @@ func GetCCVIDetails(db *sql.DB) {
 				//continue
 			//}
 
-			sql := `INSERT INTO COVID_cvi_details ("geography_type",
+			sql := `INSERT INTO covid_cvi_details ("geography_type",
 				"community_area_ZIP_code",
 				"community_area_name",
 				"CCVI_score",
