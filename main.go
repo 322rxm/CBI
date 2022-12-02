@@ -391,7 +391,9 @@ func GetTaxiTrips(db *sql.DB) {
 
 	// Get the the Taxi Trips for Taxi medallions list
 
-	var url = "https://data.cityofchicago.org/resource/wrvz-psew.json?$limit=500"
+	//ar url = "https://data.cityofchicago.org/resource/wrvz-psew.json?$limit=500"
+	var url = "https://data.cityofchicago.org/resource/wrvz-psew.json"
+
 
 	tr := &http.Transport{
 		MaxIdleConns:          10,
@@ -854,7 +856,8 @@ func GetBuildingPermits(db *sql.DB) {
 
 	// While doing unit-testing keep the limit value to 500
 	// later you could change it to 1000, 2000, 10,000, etc.
-	var url = "https://data.cityofchicago.org/resource/building-permits.json?$limit=500"
+	//var url = "https://data.cityofchicago.org/resource/building-permits.json?$limit=500"
+	var url = "https://data.cityofchicago.org/resource/building-permits.json"
 
 	tr := &http.Transport{
 		MaxIdleConns:       10,
@@ -1225,7 +1228,8 @@ func GetCovidDetails(db *sql.DB) {
 	// While doing unit-testing keep the limit value to 500
 	// later you could change it to 1000, 2000, 10,000, etc.
 
-	var url = "https://data.cityofchicago.org/resource/yhhz-zm2v.json?$limit=500"
+	//var url = "https://data.cityofchicago.org/resource/yhhz-zm2v.json?$limit=500"
+	var url = "https://data.cityofchicago.org/resource/yhhz-zm2v.json"
 
 	tr := &http.Transport{
 		MaxIdleConns:       10,
@@ -1479,7 +1483,8 @@ func GetCCVIDetails(db *sql.DB) {
 	// While doing unit-testing keep the limit value to 500
 	// later you could change it to 1000, 2000, 10,000, etc.
 
-	var url = "https://data.cityofchicago.org/resource/xhc6-88s9.json?$limit=500"
+	//ar url = "https://data.cityofchicago.org/resource/xhc6-88s9.json?$limit=500"
+	var url = "https://data.cityofchicago.org/resource/xhc6-88s9.json"
 
 	tr := &http.Transport{
 		MaxIdleConns:       10,
@@ -1506,14 +1511,14 @@ func GetCCVIDetails(db *sql.DB) {
 	for i := 0; i < len(covid_cvi_list); i++ {
 		// 1
 			geography_type := covid_cvi_list[i].Geography_type
-			//if geography_type == "" {
-				//continue
-			//}
-		// 2
-			community_area_ZIP_code := covid_cvi_list[i].Community_area_or_ZIP_code
-			if len(community_area_ZIP_code) != 5 {
+			if geography_type != "ZIP" {
 				continue
 			}
+		// 2
+			community_area_ZIP_code := covid_cvi_list[i].Community_area_or_ZIP_code
+			//if len(community_area_ZIP_code) != 5 {
+			//	continue
+			//}
 		// 3	
 			community_area_name := covid_cvi_list[i].Community_name
 			//if <> == community_area_name {
